@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Descrizione:</b>
+  <%= @attivitum.descrizione %>
+</p>
+
+<p>
+  <b>Allegato:</b>
+  <%= @attivitum.allegato_id %>
+</p>
+
+<p>
+  <b>Utente:</b>
+  <%= @attivitum.utente_id %>
+</p>
+
+<p>
+  <b>Calendario:</b>
+  <%= @attivitum.calendario_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_attivitum_path(@attivitum) %> |
+<%= link_to 'Back', attivita_path %>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  descrizione: MyText
+  allegato_id: 1
+  utente_id: 1
+  calendario_id: 1
+
+two:
+  descrizione: MyText
+  allegato_id: 1
+  utente_id: 1
+  calendario_id: 1

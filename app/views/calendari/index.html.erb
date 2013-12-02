@@ -1,0 +1,27 @@
+<h1>Listing calendari</h1>
+
+<table>
+  <tr>
+    <th>Descrizione</th>
+    <th>Utente</th>
+    <th>Gruppo</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @calendari.each do |calendario| %>
+  <tr>
+    <td><%= calendario.descrizione %></td>
+    <td><%= calendario.utente_id %></td>
+    <td><%= calendario.gruppo_id %></td>
+    <td><%= link_to 'Show', calendario %></td>
+    <td><%= link_to 'Edit', edit_calendario_path(calendario) %></td>
+    <td><%= link_to 'Destroy', calendario, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Calendario', new_calendario_path %>

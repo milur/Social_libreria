@@ -1,0 +1,25 @@
+<h1>Listing partecipanti_gruppi</h1>
+
+<table>
+  <tr>
+    <th>Utente</th>
+    <th>Gruppo</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @partecipanti_gruppi.each do |partecipanti_gruppo| %>
+  <tr>
+    <td><%= partecipanti_gruppo.utente_id %></td>
+    <td><%= partecipanti_gruppo.gruppo_id %></td>
+    <td><%= link_to 'Show', partecipanti_gruppo %></td>
+    <td><%= link_to 'Edit', edit_partecipanti_gruppo_path(partecipanti_gruppo) %></td>
+    <td><%= link_to 'Destroy', partecipanti_gruppo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Partecipanti gruppo', new_partecipanti_gruppo_path %>

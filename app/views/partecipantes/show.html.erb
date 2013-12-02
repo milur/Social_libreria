@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Conversazione:</b>
+  <%= @partecipante.conversazione_id %>
+</p>
+
+<p>
+  <b>Utente:</b>
+  <%= @partecipante.utente_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_partecipante_path(@partecipante) %> |
+<%= link_to 'Back', partecipantes_path %>

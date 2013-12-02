@@ -1,0 +1,29 @@
+<h1>Listing attivita</h1>
+
+<table>
+  <tr>
+    <th>Descrizione</th>
+    <th>Allegato</th>
+    <th>Utente</th>
+    <th>Calendario</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @attivita.each do |attivitum| %>
+  <tr>
+    <td><%= attivitum.descrizione %></td>
+    <td><%= attivitum.allegato_id %></td>
+    <td><%= attivitum.utente_id %></td>
+    <td><%= attivitum.calendario_id %></td>
+    <td><%= link_to 'Show', attivitum %></td>
+    <td><%= link_to 'Edit', edit_attivitum_path(attivitum) %></td>
+    <td><%= link_to 'Destroy', attivitum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Attivitum', new_attivitum_path %>

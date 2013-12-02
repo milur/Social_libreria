@@ -13,3 +13,11 @@
 # ActiveSupport::Inflector.inflections do |inflect|
 #   inflect.acronym 'RESTful'
 # end
+ActiveSupport::Inflector.inflections do |inflect|
+   inflect.irregular 'Calendario', 'Calendari'
+   inflect.irregular 'Utente', 'Utenti'
+   inflect.irregular 'Gruppo', 'Gruppi'
+   inflect.irregular 'Conversazione', 'Conversazioni'
+   inflect.irregular 'Messaggio', 'Messaggi'
+   inflect.irregular 'Commento', 'Commenti'
+end
