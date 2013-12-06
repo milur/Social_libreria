@@ -2,7 +2,7 @@ class GruppiController < ApplicationController
   # GET /gruppi
   # GET /gruppi.json
   def index
-    @gruppi = Gruppo.all
+    @gruppo = Gruppo.all
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @gruppi }

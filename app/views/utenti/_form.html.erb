@@ -24,12 +24,12 @@
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :password_hash %><br />
-    <%= f.text_field :password_hash %>
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
   </div>
-  <div class="field">
-    <%= f.label :password_salt %><br />
-    <%= f.text_field :password_salt %>
+   <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation %>
   </div>
   <div class="field">
     <%= f.label :codice_fiscale %><br />
@@ -37,7 +37,9 @@
   </div>
   <div class="field">
     <%= f.label :anno_di_nascita %><br />
-    <%= f.date_select :anno_di_nascita %>
+    <%= f.select :day, (1..31).to_a %>
+    <%= f.select :month, (1..12).to_a %>
+    <%= f.select :year, ((Time.now.year - 30)..(Time.now.year - 10)).to_a %>
   </div>
   <div class="actions">
     <%= f.submit %>

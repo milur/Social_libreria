@@ -1,16 +1,17 @@
 class Messaggio < ActiveRecord::Base
   attr_accessible :allegato_id, :conversazione_id, :testo, :utente_id
-    
-  validates :allegato_id, 
-              :presence => true, 
-              :uniqueness => false 
+  belongs_to :utente
+  belongs_to :conversazione  
+  validates   :allegato_id, 
+              :presence => true 
+              #:uniqueness => false 
               #:format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
               #:lenngth => { :minimum => 50}
   validates :conversazione_id, 
-              :presence => true, 
-              :uniqueness => false, 
-              :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i },
-              :lenngth => { :minimum => 50}            
+              :presence => true 
+              #:uniqueness => false, 
+              #:format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i },
+              #:lenngth => { :minimum => 50}            
 
   validates :testo, 
               :presence => true, 
@@ -20,7 +21,7 @@ class Messaggio < ActiveRecord::Base
               
   validates :utente_id, 
               :presence => true, 
-              :uniqueness => true 
+              #:uniqueness => true 
               #:format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
               #:lenngth => { :minimum => 50}
 
