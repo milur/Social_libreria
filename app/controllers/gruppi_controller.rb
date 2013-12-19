@@ -43,7 +43,7 @@ class GruppiController < ApplicationController
 
     respond_to do |format|
       if @gruppo.save
-        format.html { redirect_to @gruppo, notice: 'Gruppo was successfully created.' }
+        format.html { redirect_to @gruppo, notice: 'Gruppo creato correttamente' }
         format.json { render json: @gruppo, status: :created, location: @gruppo }
       else
         format.html { render action: "new" }

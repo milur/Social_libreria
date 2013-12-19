@@ -1,0 +1,29 @@
+<h1>Listing commenti</h1>
+
+<table>
+  <tr>
+    <th>Testo</th>
+    <th>Allegato</th>
+    <th>Utente</th>
+    <th>Attivita</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @commenti.each do |commento| %>
+  <tr>
+    <td><%= commento.testo %></td>
+    <td><%= commento.allegato_id %></td>
+    <td><%= commento.utente_id %></td>
+    <td><%= commento.attivita_id %></td>
+    <td><%= link_to 'Show', commento %></td>
+    <td><%= link_to 'Edit', edit_commento_path(commento) %></td>
+    <td><%= link_to 'Destroy', commento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Commento', new_commento_path %>

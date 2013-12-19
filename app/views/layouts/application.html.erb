@@ -7,8 +7,32 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+ <% flash.each do |name, msg| %>
+   <%= content_tag :div, msg, :id => "flash_#{name}" %>
+ <% end %>
+	  <div id="user_nav">
+		   <% if current_user %>
+		    <%= link_to current_user.nome, #<a href....
+		      :controller => "utenti", 
+                :action => "show",
+                :id => current_user.id %>
+		    <%= link_to "create Group", 
+                :controller => "gruppi", 
+                :action => "new" %>
+              <%= link_to "adding Group", 
+                :controller => "gruppi", 
+                :action => "index" %>
+              <%= link_to "agenda", 
+                :controller => "calendari", 
+                :action => "index" %>
 
-<%= yield %>
+		   <%= link_to "Logout", logout_path %>
+		  <% else %>
+		    <%= link_to "Sign up", sign_up_path %> or
+		    <%= link_to "log in", login_path %>
+		  <% end %>
+	  </div>
+ <%= yield %>
 
 </body>
 </html>

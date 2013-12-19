@@ -1,15 +1,4 @@
 <%= form_for(@partecipanti_gruppo) do |f| %>
-  <% if @partecipanti_gruppo.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@partecipanti_gruppo.errors.count, "error") %> prohibited this partecipanti_gruppo from being saved:</h2>
-
-      <ul>
-      <% @partecipanti_gruppo.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="field">
     <%= f.label :utente_id %><br />

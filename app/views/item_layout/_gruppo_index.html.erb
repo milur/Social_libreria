@@ -1,0 +1,22 @@
+<%= form_tag ("partecipanti_gruppo/create") do |f| %>
+<ul>  
+	
+	<% @gruppi.each do |gruppo| %>
+	
+	    <li><%= gruppo.nome %></li>
+	    <li><%= gruppo.manifesto %></li>
+	    <li><%= gruppo.libro_id %></li>
+	    <li><%= gruppo.classe %></li>
+	    <li><%= gruppo.scuola_id %></li>
+	    <li><%= link_to 'Show', gruppo %></li>
+	    <li><%= link_to 'Edit', edit_gruppo_path(gruppo) %></li>
+	    <li><%= link_to 'Destroy', gruppo, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+	      <% if current_user %>
+	         <%= check_box("gruppo_id", gruppo.id) %>
+	         <% # input type=chec... name="gruppo_id" value=gruppo.id %>
+		  <%end%>
+	  
+	<% end %>
+</ul>	
+<br>
+<% end %>	

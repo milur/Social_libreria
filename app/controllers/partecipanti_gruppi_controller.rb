@@ -40,7 +40,10 @@ class PartecipantiGruppiController < ApplicationController
   # POST /partecipanti_gruppi
   # POST /partecipanti_gruppi.json
   def create
-    @partecipanti_gruppo = PartecipantiGruppo.new(params[:partecipanti_gruppo])
+    
+     @partecipanti_gruppo = PartecipantiGruppo.new()
+     @partecipanti_gruppo.gruppo_id = params[:gruppo_id]
+     @partecipanti_gruppo.user_id = current_user.id
 
     respond_to do |format|
       if @partecipanti_gruppo.save
