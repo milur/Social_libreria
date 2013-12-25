@@ -1,5 +1,6 @@
 class Gruppo < ActiveRecord::Base
-  has_many :utenti ,:through => :partecipanti_gruppo
+  has_many :partecipanti_gruppi
+  has_many :utenti , :through => :partecipanti_gruppi
   belongs_to :calendario 
   
   attr_accessible :classe, :libro_id, :manifesto, :nome, :scuola_id

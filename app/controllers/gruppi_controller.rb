@@ -1,4 +1,6 @@
 class GruppiController < ApplicationController
+  before_filter :authenticate, :except => [:index,:show]
+  before_filter :auth_user, :only => [:adding_group]
   # GET /gruppi
   # GET /gruppi.json
   def index
@@ -39,10 +41,11 @@ class GruppiController < ApplicationController
   # POST /gruppi
   # POST /gruppi.json
   def create
+    @user = Utente.find(current_user.id)
     @gruppo = Gruppo.new(params[:gruppo])
-
     respond_to do |format|
       if @gruppo.save
+        @gruppo.utenti <<  @user 
         format.html { redirect_to @gruppo, notice: 'Gruppo creato correttamente' }
         format.json { render json: @gruppo, status: :created, location: @gruppo }
       else
@@ -67,16 +70,40 @@ class GruppiController < ApplicationController
       end
     end
   end
+  
+  def adding_group
+    @user = Utente.find(current_user.id)
+    @gruppo = Gruppo.find(params[:gruppo_id])
+    respond_to do |format|
+      if @gruppo
+        @gruppo.utenti <<  @user 
+        format.html { redirect_to root_url, notice: 'ti sei aggiunto correttamente al gruppo' }
+      else
+        format.html { render action: "index" ,notice: 'spiacente utente non aggiunto'}
+      end
+    end
+  end
 
   # DELETE /gruppi/1
   # DELETE /gruppi/1.json
   def destroy
     @gruppo = Gruppo.find(params[:id])
     @gruppo.destroy
-
+    
     respond_to do |format|
       format.html { redirect_to gruppi_url }
       format.json { head :no_content }
     end
   end
+  # filtro per non aggiungere due volte lo stesso user
+  def auth_user
+    @gruppo = Gruppo.find(params[:gruppo_id])
+    if @gruppo.utenti.exists?(current_user)
+      flash[:notice] = 'gruppo a cui sei gia aggiunto'
+      redirect_to root_url
+    end
+    
+       
+   end
+  
 end

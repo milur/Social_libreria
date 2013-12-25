@@ -1,7 +1,8 @@
 
 
 class Utente < ActiveRecord::Base
-  has_many :gruppi ,:through => :partecipanti_gruppo
+  has_many :partecipanti_gruppi
+  has_many :gruppi ,:through => :partecipanti_gruppi
   has_many :commenti
   has_many :messaggi
   has_many :conversazioni ,:through => :partecipante

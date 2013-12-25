@@ -8,7 +8,8 @@ class SessionController < ApplicationController
       flash[:notice] = "Bentornato #{user.nome}!"
       redirect_to root_url 
     else
-      redirect_to session_new, :flash => "username o password errata"
+       flash[:notice] = "Username o password errata!"
+      render "new"
     end 
   end
   def destroy

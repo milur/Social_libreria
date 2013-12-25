@@ -1,22 +1,30 @@
 <%= form_tag ("partecipanti_gruppo/create") do |f| %>
-<ul>  
+<div class="gruppi">  
 	
 	<% @gruppi.each do |gruppo| %>
+	<hr />
 	
-	    <li><%= gruppo.nome %></li>
-	    <li><%= gruppo.manifesto %></li>
-	    <li><%= gruppo.libro_id %></li>
-	    <li><%= gruppo.classe %></li>
-	    <li><%= gruppo.scuola_id %></li>
+	<div class="single_group">
+	   <h2>Nome</h2> <%= gruppo.nome %>
+	   <h2>Manifesto:</h2><%= gruppo.manifesto %></li>
+	   <h2>Classe:</h2> <li><%= gruppo.classe %></li>
+	   
+	    <h3>questo gruppo ha <%= pluralize(gruppo.utenti.count , 'utente') %> </h3>
+	    <ul>
 	    <li><%= link_to 'Show', gruppo %></li>
 	    <li><%= link_to 'Edit', edit_gruppo_path(gruppo) %></li>
 	    <li><%= link_to 'Destroy', gruppo, method: :delete, data: { confirm: 'Are you sure?' } %></li>
-	      <% if current_user %>
-	         <%= check_box("gruppo_id", gruppo.id) %>
-	         <% # input type=chec... name="gruppo_id" value=gruppo.id %>
-		  <%end%>
-	  
+	    </ul>
+       <% if current_user && !current_user.gruppi.exists?(gruppo) %>
+	      <%= link_to "adding group",
+                   :controller => "gruppi", 
+                   :action => "adding_group", 
+                   :gruppo_id => gruppo.id %>
+        
+	    <% end %>
+	   
 	<% end %>
-</ul>	
+</div>	
 <br>
+<hr />
 <% end %>	
