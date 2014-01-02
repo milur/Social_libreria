@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  calendario_id: 1
+  attivita_id: 1
+
+two:
+  calendario_id: 1
+  attivita_id: 1

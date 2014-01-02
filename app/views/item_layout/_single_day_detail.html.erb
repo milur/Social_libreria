@@ -1,0 +1,16 @@
+<% attivita.each do |item|%>
+ 
+	     <% if item[date] %>
+	       New n:<%= attivita.count %>
+	      <ul>
+	        <% item[date].each do |single_attivita| %>
+	          <li><%= single_attivita.descrizione %>,postato da <%= Utente.find(single_attivita.utente_id).nome %> condiviso con :
+	          	<% single_attivita.calendari.each do |c|%>
+	          	   <%= c.gruppo.nome%>
+	          	<%end%>
+	          </li>
+	        <% end %>
+	      </ul>
+	    <% end %>
+    
+   <% end %>

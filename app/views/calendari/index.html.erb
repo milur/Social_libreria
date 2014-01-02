@@ -10,18 +10,27 @@
     <th></th>
   </tr>
 
-<% @calendari.each do |calendario| %>
-  <tr>
-    <td><%= calendario.descrizione %></td>
-    <td><%= calendario.utente_id %></td>
-    <td><%= calendario.gruppo_id %></td>
-    <td><%= link_to 'Show', calendario %></td>
-    <td><%= link_to 'Edit', edit_calendario_path(calendario) %></td>
-    <td><%= link_to 'Destroy', calendario, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+		<% @calendari.each do |calendario| %>
+		  <tr>
+		    <td><%= calendario.descrizione %></td>
+		    <td><%= calendario.utente_id %></td>
+		    <td><%= calendario.gruppo_id %></td>
+		    <td><%= calendario.attivita %></td>
+		    <td><%= link_to 'Show', calendario %></td>
+		    <td><%= link_to 'Edit', edit_calendario_path(calendario) %></td>
+		    <td><%= link_to 'Destroy', calendario, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		  </tr>
+		<% end %>
+		<% @attivita.each do |attivita| %>
+		  <tr>
+		    <% attivita.each do |a| %>
+		    <td><%= a %></td>  
+		    <% end %>
+		  </tr>
+		<% end %>
+
 </table>
 
 <br />
 
-<%= link_to 'New Calendario', new_calendario_path %>
+<%= render :partial => "item_layout/calendario", :locals => { :date => @date, :attivita => @attivita }%>

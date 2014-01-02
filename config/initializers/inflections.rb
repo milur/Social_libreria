@@ -20,4 +20,5 @@ ActiveSupport::Inflector.inflections do |inflect|
    inflect.irregular 'Conversazione', 'Conversazioni'
    inflect.irregular 'Messaggio', 'Messaggi'
    inflect.irregular 'Commento', 'Commenti'
+   inflect.irregular 'Condiviso', 'Condivisi'
 end

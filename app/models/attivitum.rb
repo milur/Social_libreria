@@ -1,25 +1,12 @@
 class Attivitum < ActiveRecord::Base
-  attr_accessible :allegato_id, :calendario_id, :descrizione, :utente_id
-
-    validates :allegato_id, 
-              :presence => true
-              #:format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
-              #:lenngth => { :minimum => 50}
-              
-    validates :calendario_id, 
-              :presence => true     
-              #:format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
-              #:lenngth => { :minimum => 5}
-              
-    validates :descrizione, 
-              :presence => true, 
-              :uniqueness => false, 
-              :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i },
-              :lenngth => { :minimum => 50}
+    has_many :condivisi
+    has_many :calendari, :through => :condivisi
     
-    validates :utente_id, 
-              :presence => true,
-              :uniqueness => true
-              #:format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
-              #:lenngth => { :minimum => 5}                
+    belongs_to :utente, :foreign_key => "utente_id"
+    has_many :commenti
+   
+    attr_accessible :allegato_id, :descrizione, :data , :utente_id, :condividi
+    attr_accessor :condividi
+  
+    validates :descrizione, :presence => true
 end 

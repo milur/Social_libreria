@@ -1,9 +1,13 @@
 class AttivitaController < ApplicationController
-  # GET /attivita
-  # GET /attivita.json
+  before_filter :authenticate, :except => [:index,:show]
   def index
-    @attivita = Attivitum.all
-
+    if current_user.nil?
+      @attivita = Attivitum.all
+    else
+      @attivita = Attivitum.all
+    end
+     
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @attivita }
@@ -31,19 +35,25 @@ class AttivitaController < ApplicationController
       format.json { render json: @attivitum }
     end
   end
-
-  # GET /attivita/1/edit
+  
+  
   def edit
     @attivitum = Attivitum.find(params[:id])
   end
-
-  # POST /attivita
-  # POST /attivita.json
+  
   def create
-    @attivitum = Attivitum.new(params[:attivitum])
-
+     @attivitum = Attivitum.new(params[:attivitum])
+    @attivitum.utente_id= current_user.id   
+    if params[:gruppi_ids]
+            @calendario = Calendario.find_all_by_id(params[:gruppi_ids])
+    end
+             
     respond_to do |format|
       if @attivitum.save
+        if params[:gruppi_ids]
+            @attivitum.calendari << @calendario
+        end 
+        
         format.html { redirect_to @attivitum, notice: 'Attivitum was successfully created.' }
         format.json { render json: @attivitum, status: :created, location: @attivitum }
       else

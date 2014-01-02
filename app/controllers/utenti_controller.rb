@@ -41,10 +41,10 @@ class UtentiController < ApplicationController
   # POST /utenti.json
   def create
     @utente = Utente.new(params[:utente])
-    @calendario = Calendario.new()
-    @calendario.descrizione = "agenda di #{@utente.nome}"
+    @calendario = Calendario.create(:descrizione => "calendario di #{@utente.nome}")
     respond_to do |format|
-      if @utente.save && @calendario.save
+      if @utente.save
+        @calendario = Calendario.create(:descrizione => "calendario di #{@utente.nome}", :utente_id => @utente.id)
         format.html { redirect_to @utente, notice: 'Utente was successfully created with his agend' }
         format.json { render json: @utente, status: :created, location: @utente }
       else

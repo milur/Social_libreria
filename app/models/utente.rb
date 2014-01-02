@@ -4,6 +4,7 @@ class Utente < ActiveRecord::Base
   has_many :partecipanti_gruppi
   has_many :gruppi ,:through => :partecipanti_gruppi
   has_many :commenti
+  has_many :attivita
   has_many :messaggi
   has_many :conversazioni ,:through => :partecipante
   belongs_to :calendario
@@ -18,6 +19,7 @@ class Utente < ActiveRecord::Base
   validates :email , :uniqueness => true #format mail
   
   
+  
   def self.authenticate(email, password)
     user = find_by_email(email)
     if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
@@ -26,6 +28,7 @@ class Utente < ActiveRecord::Base
       nil
     end
   end
+  
   
   private
   def date_store

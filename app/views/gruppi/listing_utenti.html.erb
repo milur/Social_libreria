@@ -1,0 +1,8 @@
+<h2>Lista gruppo <%=@gruppo.nome%>:</h2>
+<ul>
+	<% @utenti.each do |u|%>
+	  <li><%= link_to "#{u.nome} #{u.cognome}" , :controller => "utenti", 
+                               :action => "show",
+                               :id => u.id %></li>
+	<% end %>
+</ul>

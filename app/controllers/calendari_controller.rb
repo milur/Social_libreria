@@ -1,17 +1,23 @@
 class CalendariController < ApplicationController
-  # GET /calendari
-  # GET /calendari.json
+  before_filter :authenticate
+  
   def index
-    @calendari = Calendario.all
-
+    @attivita = []
+    @gruppi = current_user.gruppi.select("gruppi.id") #gruppi dell'utente loggato
+    @calendari = Calendario.where("gruppo_id IN (?)",@gruppi) #calendari collegati
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today #data calendario
+    if @calendari.present?
+         @calendari.each do |a|
+           @attivita << a.attivita.group_by(&:data)
+         end
+    end
+    
     respond_to do |format|
-      format.html # index.html.erb
+      format.html 
       format.json { render json: @calendari }
     end
   end
-
-  # GET /calendari/1
-  # GET /calendari/1.json
+  
   def show
     @calendario = Calendario.find(params[:id])
 

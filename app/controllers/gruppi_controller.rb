@@ -46,6 +46,7 @@ class GruppiController < ApplicationController
     respond_to do |format|
       if @gruppo.save
         @gruppo.utenti <<  @user 
+        @calendario = Calendario.create(:descrizione => "calendario del gruppo #{@gruppo.nome}", :gruppo_id => @gruppo.id)
         format.html { redirect_to @gruppo, notice: 'Gruppo creato correttamente' }
         format.json { render json: @gruppo, status: :created, location: @gruppo }
       else
@@ -102,8 +103,10 @@ class GruppiController < ApplicationController
       flash[:notice] = 'gruppo a cui sei gia aggiunto'
       redirect_to root_url
     end
-    
-       
-   end
+  end
+  def listing_utenti
+    @gruppo = Gruppo.find(params[:gruppo_id])
+    @utenti = @gruppo.utenti
+  end
   
 end

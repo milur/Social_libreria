@@ -11,15 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131202161455) do
+ActiveRecord::Schema.define(:version => 20131230201807) do
 
   create_table "attivita", :force => true do |t|
     t.text     "descrizione"
     t.integer  "allegato_id"
     t.integer  "utente_id"
-    t.integer  "calendario_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.date     "data"
   end
 
   create_table "calendari", :force => true do |t|
@@ -37,6 +37,13 @@ ActiveRecord::Schema.define(:version => 20131202161455) do
     t.integer  "attivita_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "condivisi", :force => true do |t|
+    t.integer  "calendario_id"
+    t.integer  "attivitum_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "conversazioni", :force => true do |t|

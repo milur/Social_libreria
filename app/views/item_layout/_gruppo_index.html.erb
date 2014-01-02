@@ -1,4 +1,4 @@
-<%= form_tag ("partecipanti_gruppo/create") do |f| %>
+
 <div class="gruppi">  
 	
 	<% @gruppi.each do |gruppo| %>
@@ -9,17 +9,21 @@
 	   <h2>Manifesto:</h2><%= gruppo.manifesto %></li>
 	   <h2>Classe:</h2> <li><%= gruppo.classe %></li>
 	   
-	    <h3>questo gruppo ha <%= pluralize(gruppo.utenti.count , 'utente') %> </h3>
+	    <h3>questo gruppo ha <%=link_to pluralize(gruppo.utenti.count , 'utente'),:controller => "gruppi", 
+                   :action => "listing_utenti",
+                   :gruppo_id => gruppo.id %> </h3>
 	    <ul>
-	    <li><%= link_to 'Show', gruppo %></li>
+	    <li><%= link_to 'Show', :controller => "gruppi", 
+                                :action => "show",
+                                :id => gruppo.id %></li>
 	    <li><%= link_to 'Edit', edit_gruppo_path(gruppo) %></li>
 	    <li><%= link_to 'Destroy', gruppo, method: :delete, data: { confirm: 'Are you sure?' } %></li>
 	    </ul>
        <% if current_user && !current_user.gruppi.exists?(gruppo) %>
 	      <%= link_to "adding group",
-                   :controller => "gruppi", 
-                   :action => "adding_group", 
-                   :gruppo_id => gruppo.id %>
+						               :controller => "gruppi", 
+					                   :action => "adding_group", 
+					                   :gruppo_id => gruppo.id %>
         
 	    <% end %>
 	   
@@ -27,4 +31,3 @@
 </div>	
 <br>
 <hr />
-<% end %>	
