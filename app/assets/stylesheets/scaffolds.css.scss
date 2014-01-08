@@ -9,13 +9,36 @@ body {
   vertical-align: middle;
 }
 .gruppi{
-  
-  
-  
-}
+ }
 .single_group{
   border: 2px,solid;
   float:left;
+}
+.single_attivita{
+  width :350px;
+  padding:5px;
+  border-width: 1px 2px 1px 2px;
+  border-style: solid;
+  border-color: black red black red;
+}
+
+.attivita{
+  width :400px;
+  min-height:500px;
+  padding:20px;
+  float:left;
+  margin-bottom: 10px;
+  border-width: 1px 2px 1px 2px;
+  border-style: solid;
+  border-color: black red black red;
+}
+.attivita_form{
+  float:left;
+  width :300px;
+  padding:10px;
+  border-width: 1px 2px 1px 2px;
+  border-style: solid;
+  border-color: black red black red;
 }
 
 p, ol, ul, td {

@@ -1,0 +1,10 @@
+<div class="comment" data-time="<%= commento.created_at.to_i %>">
+  <em> <% if Utente.find(commento.utente_id).image.present?%>	
+        <%= image_tag Utente.find(commento.utente_id).image_url(:thumb).to_s %>
+       <% end %>
+  </em><strong><%= Utente.find(commento.utente_id).nome %></strong>
+  <em>on <%= commento.created_at.strftime('%b %d, %Y at %I:%M %p') %></em>
+  <div class="testo">
+   <%= commento.testo %>
+  </div>
+</div>

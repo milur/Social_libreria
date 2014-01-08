@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131230201807) do
+ActiveRecord::Schema.define(:version => 20140107134206) do
 
   create_table "attivita", :force => true do |t|
     t.text     "descrizione"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20131230201807) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.date     "data"
+    t.string   "image"
   end
 
   create_table "calendari", :force => true do |t|
@@ -34,9 +35,9 @@ ActiveRecord::Schema.define(:version => 20131230201807) do
     t.text     "testo"
     t.integer  "allegato_id"
     t.integer  "utente_id"
-    t.integer  "attivita_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer  "attivitum_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "condivisi", :force => true do |t|
@@ -60,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20131230201807) do
     t.integer  "scuola_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "image"
   end
 
   create_table "messaggi", :force => true do |t|
@@ -95,6 +97,7 @@ ActiveRecord::Schema.define(:version => 20131230201807) do
     t.date     "anno_di_nascita"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "image"
   end
 
 end

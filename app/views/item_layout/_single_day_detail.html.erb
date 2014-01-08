@@ -1,16 +1,63 @@
-<% attivita.each do |item|%>
- 
-	     <% if item[date] %>
-	       New n:<%= attivita.count %>
-	      <ul>
-	        <% item[date].each do |single_attivita| %>
-	          <li><%= single_attivita.descrizione %>,postato da <%= Utente.find(single_attivita.utente_id).nome %> condiviso con :
-	          	<% single_attivita.calendari.each do |c|%>
-	          	   <%= c.gruppo.nome%>
-	          	<%end%>
-	          </li>
-	        <% end %>
-	      </ul>
-	    <% end %>
-    
-   <% end %>
+
+
+	<% if attivita.present? %>
+	
+		 <% attivita.uniq.each do |item|%>
+		 <div class="attivita">
+		     <% at = Attivitum.find(item)%>
+		<div class="single_attivita">
+	        <% if at.image.present? %>
+	         <%= image_tag at.image_url(:normal).to_s %>
+	        <% end %><br />
+			<b> <%= at.descrizione %></b>
+			<br>
+			<% if Utente.find(at.utente_id).image.present?%>	
+                      <%= image_tag Utente.find(at.utente_id).image_url(:thumb).to_s %>
+                     <% end %> 
+			<strong><%= link_to  Utente.find(at.utente_id).nome, :controller => "utenti",
+																	:action => "show",
+																	:id =>Utente.find(at.utente_id).id %></strong>
+			<em> son <%= at.created_at.strftime('%b %d, %Y at %I:%M %p') %></em>														
+			<br>
+			condiviso con :
+			<% at.calendari.each do |c|%>
+			      <% if  c.gruppo.present?%>
+			       <%= link_to c.gruppo.nome,  :controller => "gruppi",
+										       :action => "show",
+										       :id =>c.gruppo.id%>
+					<% else %>
+							personale
+			      <%end%>
+			<%end%>
+			<br>
+			<% if at.utente_id == current_user.id%>
+			  <%= link_to "vuoi modificare #{current_user.nome}?", :controller => "attivita",
+										                           :action => "edit",
+										                           :id => at.id ,
+										                           :data => data %><br>
+			  <%= link_to 'vuoi cancellarla?', at, method: :delete, data: { confirm: 'sei sicuro di cancellarla?' } %>
+			<% end %>
+		
+		</div>
+			<div class="commenti">
+				<% unless at.commenti.empty? %>
+				<h2><%= pluralize(at.commenti.size, 'commento') %></h2>
+		
+				<div id="comments">
+					<%= render at.commenti %>
+				</div>
+				<% end %>
+			</div>
+			<div class="commenti_form">
+				<%= render :partial => "commenti/form" ,:locals => { :utente_id => current_user.id, :attivitum_id => at.id }%>
+			</div>
+		</div>	
+			<% end %>
+			
+
+	<% else %>
+	  <em>non ci sono attivita per questo giorno</em>
+	<% end %>
+	<%= render :partial => "attivita/form" ,:locals => { :data => data }%>
+
+

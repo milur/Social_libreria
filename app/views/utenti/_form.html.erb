@@ -41,6 +41,10 @@
     <%= f.select :month, (1..12).to_a %>
     <%= f.select :year, ((Time.now.year - 30)..(Time.now.year - 10)).to_a %>
   </div>
+  <p>
+  	<%= f.label "immagine profilo" %>
+    <%= f.file_field :image %>
+  </p>
   <div class="actions">
     <%= f.submit %>
   </div>

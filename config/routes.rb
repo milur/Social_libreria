@@ -5,8 +5,13 @@ SocialLibreria1::Application.routes.draw do
   post "session/create"
   
   get 'gruppi/adding_group/:gruppo_id', to: 'gruppi#adding_group', as: :gruppo_id
+  get 'gruppi/remove_group/:gruppo_id', to: 'gruppi#remove_group', as: :gruppo_id
   get 'gruppi/lista_utenti/:gruppo_id', to: 'gruppi#listing_utenti', as: :gruppo_id
   get 'gruppi/data/:date', to: 'calendari#index', as: :date
+  
+  get "calendari/show_day/:date_day/", to: 'calendari#show_day'
+  
+ 
   
   resources :commenti
   resources :attivita

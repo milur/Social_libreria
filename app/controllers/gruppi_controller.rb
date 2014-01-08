@@ -1,9 +1,10 @@
 class GruppiController < ApplicationController
   before_filter :authenticate, :except => [:index,:show]
   before_filter :auth_user, :only => [:adding_group]
-  # GET /gruppi
-  # GET /gruppi.json
   def index
+    if current_user
+      
+    end
     @gruppi = Gruppo.all
     respond_to do |format|
       format.html # index.html.erb
@@ -11,8 +12,6 @@ class GruppiController < ApplicationController
     end
   end
 
-  # GET /gruppi/1
-  # GET /gruppi/1.json
   def show
     @gruppo = Gruppo.find(params[:id])
 
@@ -22,8 +21,6 @@ class GruppiController < ApplicationController
     end
   end
 
-  # GET /gruppi/new
-  # GET /gruppi/new.json
   def new
     @gruppo = Gruppo.new
 
@@ -41,7 +38,7 @@ class GruppiController < ApplicationController
   # POST /gruppi
   # POST /gruppi.json
   def create
-    @user = Utente.find(current_user.id)
+     @user = Utente.find(current_user.id)
     @gruppo = Gruppo.new(params[:gruppo])
     respond_to do |format|
       if @gruppo.save
@@ -73,13 +70,25 @@ class GruppiController < ApplicationController
   end
   
   def adding_group
-    @user = Utente.find(current_user.id)
+     @user = Utente.find(current_user.id)
     @gruppo = Gruppo.find(params[:gruppo_id])
     respond_to do |format|
       if @gruppo
         @gruppo.utenti <<  @user 
         format.html { redirect_to root_url, notice: 'ti sei aggiunto correttamente al gruppo' }
       else
+        format.html { render action: "index" ,notice: 'spiacente utente non aggiunto'}
+      end
+    end
+  end
+  def remove_group
+    @user = Utente.find(current_user.id)
+    @gruppo = Gruppo.find(params[:gruppo_id])
+    respond_to do |format|
+      if @gruppo
+        @gruppo.utenti.destroy(@user) 
+        format.html { redirect_to root_url, notice: "ti sei rimosso dal gruppo #{@gruppo.nome}" }
+     else                    
         format.html { render action: "index" ,notice: 'spiacente utente non aggiunto'}
       end
     end
@@ -96,6 +105,7 @@ class GruppiController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
   # filtro per non aggiungere due volte lo stesso user
   def auth_user
     @gruppo = Gruppo.find(params[:gruppo_id])

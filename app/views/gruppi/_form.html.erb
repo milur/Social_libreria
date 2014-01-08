@@ -19,18 +19,16 @@
     <%= f.label :manifesto %><br />
     <%= f.text_area :manifesto %>
   </div>
-  <div class="field">
-    <%= f.label :libro_id %><br />
-    <%= f.number_field :libro_id %>
-  </div>
+ 
   <div class="field">
     <%= f.label :classe %><br />
     <%= f.text_field :classe %>
   </div>
-  <div class="field">
-    <%= f.label :scuola_id %><br />
-    <%= f.number_field :scuola_id %>
-  </div>
+  <p>
+  	<%= f.label "immagine gruppo" %>
+    <%= f.file_field :image %>
+  </p>
+
   <div class="actions">
     <%= f.submit %>
   </div>

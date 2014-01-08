@@ -1,36 +1,3 @@
-<h1>Listing calendari</h1>
-
-<table>
-  <tr>
-    <th>Descrizione</th>
-    <th>Utente</th>
-    <th>Gruppo</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-		<% @calendari.each do |calendario| %>
-		  <tr>
-		    <td><%= calendario.descrizione %></td>
-		    <td><%= calendario.utente_id %></td>
-		    <td><%= calendario.gruppo_id %></td>
-		    <td><%= calendario.attivita %></td>
-		    <td><%= link_to 'Show', calendario %></td>
-		    <td><%= link_to 'Edit', edit_calendario_path(calendario) %></td>
-		    <td><%= link_to 'Destroy', calendario, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-		  </tr>
-		<% end %>
-		<% @attivita.each do |attivita| %>
-		  <tr>
-		    <% attivita.each do |a| %>
-		    <td><%= a %></td>  
-		    <% end %>
-		  </tr>
-		<% end %>
-
-</table>
-
+<h1>la mia agenda</h1>
 <br />
-
 <%= render :partial => "item_layout/calendario", :locals => { :date => @date, :attivita => @attivita }%>

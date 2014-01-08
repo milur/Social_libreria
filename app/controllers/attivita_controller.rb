@@ -1,21 +1,14 @@
 class AttivitaController < ApplicationController
   before_filter :authenticate, :except => [:index,:show]
+  before_filter :auth_user, :only => [:update,:destroy]
   def index
     if current_user.nil?
       @attivita = Attivitum.all
     else
-      @attivita = Attivitum.all
-    end
-     
-    
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @attivita }
+      @attivita = Attivitum.find_all_by_utente_id(current_user.id)
     end
   end
 
-  # GET /attivita/1
-  # GET /attivita/1.json
   def show
     @attivitum = Attivitum.find(params[:id])
 
@@ -25,8 +18,6 @@ class AttivitaController < ApplicationController
     end
   end
 
-  # GET /attivita/new
-  # GET /attivita/new.json
   def new
     @attivitum = Attivitum.new
 
@@ -42,19 +33,23 @@ class AttivitaController < ApplicationController
   end
   
   def create
-     @attivitum = Attivitum.new(params[:attivitum])
-    @attivitum.utente_id= current_user.id   
+    @attivitum = Attivitum.new(params[:attivitum])
+    @attivitum.utente_id= current_user.id  
+    @calendario_user= Calendario.find_by_utente_id(current_user.id) 
     if params[:gruppi_ids]
             @calendario = Calendario.find_all_by_id(params[:gruppi_ids])
     end
              
     respond_to do |format|
       if @attivitum.save
+        if @calendario_user.present?
+           @attivitum.calendari << @calendario_user
+        end
         if params[:gruppi_ids]
             @attivitum.calendari << @calendario
         end 
         
-        format.html { redirect_to @attivitum, notice: 'Attivitum was successfully created.' }
+        format.html { redirect_to @attivitum , notice: 'Attivitum was successfully created.' }
         format.json { render json: @attivitum, status: :created, location: @attivitum }
       else
         format.html { render action: "new" }
@@ -63,14 +58,12 @@ class AttivitaController < ApplicationController
     end
   end
 
-  # PUT /attivita/1
-  # PUT /attivita/1.json
   def update
     @attivitum = Attivitum.find(params[:id])
 
     respond_to do |format|
       if @attivitum.update_attributes(params[:attivitum])
-        format.html { redirect_to @attivitum, notice: 'Attivitum was successfully updated.' }
+        format.html { redirect_to calendari_url, notice: "hai modificato con successo in data #{@attivitum.data.strftime('%b %d %M')}" }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -79,15 +72,20 @@ class AttivitaController < ApplicationController
     end
   end
 
-  # DELETE /attivita/1
-  # DELETE /attivita/1.json
   def destroy
     @attivitum = Attivitum.find(params[:id])
     @attivitum.destroy
 
     respond_to do |format|
-      format.html { redirect_to attivita_url }
+      format.html { redirect_to calendari_url }
       format.json { head :no_content }
+    end
+  end
+  def auth_user
+    @attivita = Attivitum.find(params[:id])
+    if @attivita.utente_id != current_user.id
+      flash[:notice] = 'non ti e permesso editare o cancellare'
+      redirect_to calendari_url
     end
   end
 end

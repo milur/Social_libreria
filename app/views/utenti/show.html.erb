@@ -34,7 +34,11 @@
   <b>Anno di nascita:</b>
   <%= @utente.anno_di_nascita %>
 </p>
-
+<p>
+<% if @utente.image.present?%>	
+ <%= image_tag @utente.image_url(:normal).to_s %>
+<% end %>
+</p>
 
 <%= link_to 'Edit', edit_utente_path(@utente) %> |
 <%= link_to 'Back', utenti_path %>

@@ -6,6 +6,9 @@
 	
 	<div class="single_group">
 	   <h2>Nome</h2> <%= gruppo.nome %>
+	   <% if gruppo.image.present?%>	
+		 <%= image_tag gruppo.image_url(:normal).to_s %>
+		<% end %>
 	   <h2>Manifesto:</h2><%= gruppo.manifesto %></li>
 	   <h2>Classe:</h2> <li><%= gruppo.classe %></li>
 	   
@@ -24,6 +27,13 @@
 						               :controller => "gruppi", 
 					                   :action => "adding_group", 
 					                   :gruppo_id => gruppo.id %>
+        
+	    <% end %>
+	    <% if current_user && current_user.gruppi.exists?(gruppo) %>
+	      <%= link_to "remove from this group",
+								               :controller => "gruppi", 
+							                   :action => "remove_group", 
+							                   :gruppo_id => gruppo.id %>
         
 	    <% end %>
 	   

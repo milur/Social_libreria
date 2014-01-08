@@ -1,0 +1,3 @@
+<h1>  Attivita <%=@data.strftime("%d %B ") %></h1> 
+
+<%= render :partial => "item_layout/single_day_detail" ,:locals => { :attivita => @attivita, :data => @data }%>

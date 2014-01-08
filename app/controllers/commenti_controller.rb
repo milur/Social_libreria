@@ -40,8 +40,9 @@ class CommentiController < ApplicationController
   # POST /commenti
   # POST /commenti.json
   def create
-    @commento = Commento.new(params[:commento])
-
+    @attivita = Attivitum.find(params[:commento][:attivitum_id])
+    @commento = @attivita.commenti.build(params[:commento])
+    @commento.utente_id = params[:commento][:utente_id]
     respond_to do |format|
       if @commento.save
         format.html { redirect_to @commento, notice: 'Commento was successfully created.' }
